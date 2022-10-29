@@ -26,7 +26,8 @@ public class Suite implements TestSuite {
 				new VisualizerCommandTest(),
 				new RoadMapCommandTest(),
 				// events
-				new RoadMapEventsTest()
+				new RoadMapEventsTest(),
+				new VisualizerEventsTest()
 		);
 	}
 

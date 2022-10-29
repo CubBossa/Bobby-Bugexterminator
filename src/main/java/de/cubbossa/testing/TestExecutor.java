@@ -26,16 +26,22 @@ public class TestExecutor {
 		this.timeout = timeout;
 	}
 
-	public TestContext run(Runnable onComplete) {
+	public TestContext run(TestRunner runner, Runnable onComplete) {
 		long start = System.currentTimeMillis();
 
 		running = true;
 
 		TestContext context = new SimpleTestContext(() -> {
+			if (!runner.getCurrentTest().equals(this)) {
+				return;
+			}
 			running = false;
 			duration = System.currentTimeMillis() - start;
 			onComplete.run();
 		}, t -> {
+			if (!runner.getCurrentTest().equals(this)) {
+				return;
+			}
 			running = false;
 			duration = System.currentTimeMillis() - start;
 			failed = true;
@@ -55,7 +61,7 @@ public class TestExecutor {
 						throwable = new TimeoutException("Test exceeded millisecond limit. Cancelling...");
 						context.next();
 					}
-				}, timeout / 50 /* timeout in ticks */);
+				}, timeout / 5 /* timeout in ticks */);
 			} else {
 				if (testMethod.getParameters().length == 1 && testMethod.getParameters()[0].getType().equals(TestContext.class)) {
 					testMethod.invoke(set, context);

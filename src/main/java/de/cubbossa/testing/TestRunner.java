@@ -21,6 +21,7 @@ public class TestRunner {
 	private Queue<Runnable> pendingTasks = new LinkedList<>();
 	private Runnable currentTask = null;
 	private TestContext currentContext = null;
+	private TestExecutor currentTest = null;
 
 	public void run(TestSet tests) {
 		run(new SimpleTestSuite(List.of(tests)));
@@ -48,11 +49,14 @@ public class TestRunner {
 				queue(suite::beforeTest);
 				queue(set::beforeEach);
 				TestPlugin.getInstance().getLogger().log(Level.INFO, set.getClass().getSimpleName() + "::" + test.getTestMethod().getName());
-				pendingTasks.add(() -> Bukkit.getScheduler().runTask(TestPlugin.getInstance(), () -> currentContext = test.run(() -> {
-					summary.store(test);
-					printer.logTest(test);
-					next();
-				})));
+				pendingTasks.add(() -> Bukkit.getScheduler().runTask(TestPlugin.getInstance(), () -> {
+					currentTest = test;
+					currentContext = test.run(this, () -> {
+						summary.store(test);
+						printer.logTest(test);
+						next();
+					});
+				}));
 				queue(set::afterEach);
 				queue(suite::afterTest);
 			}

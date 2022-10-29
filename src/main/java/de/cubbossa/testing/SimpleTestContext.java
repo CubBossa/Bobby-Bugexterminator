@@ -45,7 +45,7 @@ public class SimpleTestContext implements TestContext {
 			} catch (Throwable t) {
 				fail(t);
 			}
-		}, duration / 50);
+		}, duration / 5);
 	}
 
 	@Override
