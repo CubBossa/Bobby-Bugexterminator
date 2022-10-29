@@ -1,0 +1,10 @@
+name: pathfinder-test
+version: 1.0
+api-version: 1.17
+author: CubBossa
+main: de.cubbossa.pathfinder.test.TestPlugin
+depend:
+  - PathFinder
+
+commands:
+  pathfinder-test-routine:
