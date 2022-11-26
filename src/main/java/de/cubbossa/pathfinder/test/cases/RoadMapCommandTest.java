@@ -53,7 +53,7 @@ public class RoadMapCommandTest implements TestSet {
 	@Test(timeout = 1000)
 	public void renameRoadMap(TestContext context) {
 
-		RoadMap roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmct_2");
+		RoadMap roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmct_2", true, true);
 
 		MinecraftAsserts.assertInEvent(RoadMapSetNameEvent.class, context, value -> {
 			assertEquals(roadMap.getNameFormat(), "t_rmct_3");

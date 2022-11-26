@@ -23,7 +23,7 @@ public class RoadMapAPIModifyTest implements TestSet {
 
 	@Override
 	public void beforeAll() {
-		roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmamt_x");
+		roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmamt_x", true, true);
 	}
 
 	@Override
@@ -65,17 +65,15 @@ public class RoadMapAPIModifyTest implements TestSet {
 
 	@Test
 	public void createNode() {
-		int nodeIdCounter = RoadMapHandler.getInstance().getNodeIdCounter();
-		Waypoint node = roadMap.createNode(RoadMapHandler.WAYPOINT_TYPE, new Location(Bukkit.getWorlds().get(0), 1, 2, 3));
+		Waypoint node = roadMap.createNode(RoadMapHandler.WAYPOINT_TYPE, new Location(Bukkit.getWorlds().get(0), 1, 2, 3), true);
 		assertNotNull(node);
 		assertEquals(node.getLocation().toVector(), new Vector(1, 2, 3));
-		assertEquals(nodeIdCounter + 1, node.getNodeId());
 		roadMap.removeNodes(node);
 	}
 
 	@Test
 	public void addNode () {
-		Waypoint node = new Waypoint(23, roadMap);
+		Waypoint node = new Waypoint(23, roadMap, true);
 		node.setLocation(new Location(Bukkit.getWorlds().get(0), 1, 2, 3));
 
 		roadMap.addNode(node);

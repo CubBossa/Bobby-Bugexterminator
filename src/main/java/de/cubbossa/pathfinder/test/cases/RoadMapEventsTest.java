@@ -23,13 +23,13 @@ public class RoadMapEventsTest implements TestSet {
 			assertEquals(key, value.getRoadMap().getKey());
 			RoadMapHandler.getInstance().deleteRoadMap(RoadMapHandler.getInstance().getRoadMap(key));
 		});
-		RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmet_1");
+		RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmet_1", true, true);
 	}
 	
 	@Test
 	public void deleteEvent(TestContext context) {
 		NamespacedKey key = new NamespacedKey(TestPlugin.getInstance(), "t_rmet_2");
-		RoadMap rm = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), key.getKey());
+		RoadMap rm = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), key.getKey(), true, true);
 		assertNotNull(rm);
 		assertEquals(key, rm.getKey());
 		RoadMapHandler.getInstance().deleteRoadMap(rm);
@@ -41,7 +41,7 @@ public class RoadMapEventsTest implements TestSet {
 
 	@Test
 	public void nameChangedEvent(TestContext context) {
-		RoadMap roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmet_3");
+		RoadMap roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmet_3", true, true);
 		assertNotNull(roadMap);
 		String current = roadMap.getNameFormat();
 
@@ -56,7 +56,7 @@ public class RoadMapEventsTest implements TestSet {
 	@Test
 	public void visualizerChangedEvent(TestContext context) {
 		PathVisualizer<?, ?> visualizer = VisualizerHandler.COMBINED_VISUALIZER_TYPE.create(new NamespacedKey(TestPlugin.getInstance(), "t_rmet_5"), "t_rmet_5");
-		RoadMap roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmet_5");
+		RoadMap roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmet_5", true, true);
 		assertNotNull(roadMap);
 		assertNotNull(visualizer);
 		PathVisualizer<?, ?> current = roadMap.getVisualizer();
@@ -76,7 +76,7 @@ public class RoadMapEventsTest implements TestSet {
 
 	@Test
 	public void curveLengthChangedEvent(TestContext context) {
-		RoadMap roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmet_6");
+		RoadMap roadMap = RoadMapHandler.getInstance().createRoadMap(TestPlugin.getInstance(), "t_rmet_6", true, true);
 		assertNotNull(roadMap);
 		double current = roadMap.getDefaultCurveLength();
 
